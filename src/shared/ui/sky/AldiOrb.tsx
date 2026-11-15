@@ -11,10 +11,10 @@ export type { AgentState };
 
 type Props = {
   /** null: Start screen / nobody speaking; listening: user speaks; talking: Aldi speaks; thinking: card is being assembled. */
-  agentState?: AgentState;
+  agentState?: AgentState | undefined;
   /** Live call volumes (e.g. getInputVolume / getOutputVolume from ElevenLabs useConversation). */
-  getInputVolume?: () => number;
-  getOutputVolume?: () => number;
+  getInputVolume?: (() => number) | undefined;
+  getOutputVolume?: (() => number) | undefined;
   placement?: 'start' | 'call' | 'card';
 };
 

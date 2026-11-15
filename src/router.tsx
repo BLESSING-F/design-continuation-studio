@@ -16,3 +16,10 @@ export const getRouter = () => {
 
   return router;
 };
+
+declare module "@tanstack/react-router" {
+  interface StaticDataRouteOption {
+    /** Patient screens share one persistent sky; the value picks its variant. */
+    patient?: "full" | "call" | "veil";
+  }
+}

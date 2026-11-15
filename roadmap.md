@@ -13,6 +13,9 @@
 - [x] Verify four time-mode screenshots, desktop/mobile, session persistence, existing routing and pure time rules; keep doctor screens and copy unchanged.
 - [ ] Real-device smoothness and orientation need the user's phone; software rendering cannot establish those.
 # Patient screens (final copy)
-- [ ] Build Start, Call, Text, Card, Delete sheet and Done screens with the exact final Russian copy; remove demo labels.
-- [ ] Title: GradientText (React Bits) replaces ShinyText; no glass box; day/night colors and glow.
-- [ ] ClickSpark (React Bits) only on the three primary buttons; replaces ripple; disabled = no sparks; 220 ms route delay; night glow 0.9.
+- [x] Build Start, Call, Text, Card, Delete sheet and Done screens with the exact final Russian copy; remove demo labels.
+- [x] Title: GradientText (React Bits) replaces ShinyText; no glass box; day/night colors and glow.
+- [x] ClickSpark (React Bits) only on the three primary buttons; replaces ripple; disabled = no sparks; 220 ms route delay; night glow 0.9.
+- [x] Publish the site once the patient screens are built and checked.
+- [ ] Fill card rows from the patient's words (needs AI card building) and connect the ElevenLabs voice agent; until then voice calls end on the error state and text cards start as «Не указано».
+- [ ] Real delivery to the doctor (needs doctor cabinet + backend); «Отправить врачу» currently only marks the card sent in this browser.

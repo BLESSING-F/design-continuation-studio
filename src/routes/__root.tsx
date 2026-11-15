@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useMatches,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -12,6 +13,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Toaster } from "@/components/ui/sonner";
+import { PatientShell } from "@/shared/ui/patient/PatientShell";
 
 function NotFoundComponent() {
   return (
@@ -100,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Cormorant+Garamond:ital,wght@1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&subset=cyrillic&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&subset=cyrillic&display=swap",
       },
     ],
   }),
@@ -126,11 +129,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const patient = useMatches({ select: matches => [...matches].reverse().find(m => m.staticData.patient)?.staticData.patient });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {patient ? <PatientShell variant={patient}><Outlet /></PatientShell> : <Outlet />}
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }

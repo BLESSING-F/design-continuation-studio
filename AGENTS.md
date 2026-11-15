@@ -36,4 +36,8 @@ use the editor.
 - Patient glass uses the sky canvas's data-sky-phase signal and shared semantic tokens; why: panel contrast and sky time must stay synchronized, including demo cycles.
 - The Aldi sphere is the ElevenLabs UI Orb (src/components/ui/orb.tsx, local edits: project-hosted noise texture, frameloop prop), lazy-wrapped by AldiOrb with agentState, optional live volume getters, placement and one shared layoutId; why: voice screens pass useConversation volumes straight in, and visual transitions are reused without inventing call logic.
 - Use seeded Drei Clouds with the project-hosted standard texture, pure cloud-motion drift and GodRays behind the orb; why: reuse the requested cloud renderer while testing wind separately and preserving the gradient/foliage shaders. Dev canvas data-cloud-x and data-cloud-opacity expose live verification state.
+- Patient routes declare staticData.patient (full/call/veil); __root renders one persistent PatientShell (sky + LayoutGroup) around them; why: the WebGL sky and shared orb transition survive navigation.
+- Patient copy lives only in src/shared/copy/patient.ts; card rules in src/features/session/card.ts (pure, tested), browser persistence in storage.ts; why: exact user strings and quote-backed card rules stay in one testable place.
+- Reading screens (data-reading) keep day text/glass tokens under the ivory veil at night; why: contrast on the 75% ivory veil.
+- React Bits GradientText/ClickSpark are vendored in src/components/ui (ClickSpark is ts-nocheck); why: upstream code, kept close to source.
 <!-- AGENT-MEMORY:END -->
