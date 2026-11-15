@@ -10,18 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CabinetRouteImport } from './routes/cabinet'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as CardRouteImport } from './routes/card'
 import { Route as DoneRouteImport } from './routes/done'
+import { Route as InviteRouteImport } from './routes/invite'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TextRouteImport } from './routes/text'
 import { Route as CabinetIndexRouteImport } from './routes/cabinet.index'
 import { Route as CabinetCardIdRouteImport } from './routes/cabinet.$cardId'
+import { Route as ExercisesIndexRouteImport } from './routes/exercises.index'
+import { Route as ExercisesIdRouteImport } from './routes/exercises.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CabinetRoute = CabinetRouteImport.update({
@@ -44,6 +54,16 @@ const DoneRoute = DoneRouteImport.update({
   path: '/done',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InviteRoute = InviteRouteImport.update({
+  id: '/invite',
+  path: '/invite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StyleguideRoute = StyleguideRouteImport.update({
   id: '/styleguide',
   path: '/styleguide',
@@ -64,83 +84,128 @@ const CabinetCardIdRoute = CabinetCardIdRouteImport.update({
   path: '/$cardId',
   getParentRoute: () => CabinetRoute,
 } as any)
+const ExercisesIndexRoute = ExercisesIndexRouteImport.update({
+  id: '/exercises/',
+  path: '/exercises/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExercisesIdRoute = ExercisesIdRouteImport.update({
+  id: '/exercises/$id',
+  path: '/exercises/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
   '/cabinet': typeof CabinetRouteWithChildren
   '/call': typeof CallRoute
   '/card': typeof CardRoute
   '/done': typeof DoneRoute
+  '/invite': typeof InviteRoute
+  '/login': typeof LoginRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
   '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/exercises/$id': typeof ExercisesIdRoute
   '/cabinet/': typeof CabinetIndexRoute
+  '/exercises/': typeof ExercisesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
   '/call': typeof CallRoute
   '/card': typeof CardRoute
   '/done': typeof DoneRoute
+  '/invite': typeof InviteRoute
+  '/login': typeof LoginRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
   '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/exercises/$id': typeof ExercisesIdRoute
   '/cabinet': typeof CabinetIndexRoute
+  '/exercises': typeof ExercisesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assistant': typeof AssistantRoute
   '/cabinet': typeof CabinetRouteWithChildren
   '/call': typeof CallRoute
   '/card': typeof CardRoute
   '/done': typeof DoneRoute
+  '/invite': typeof InviteRoute
+  '/login': typeof LoginRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
   '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/exercises/$id': typeof ExercisesIdRoute
   '/cabinet/': typeof CabinetIndexRoute
+  '/exercises/': typeof ExercisesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/assistant'
     | '/cabinet'
     | '/call'
     | '/card'
     | '/done'
+    | '/invite'
+    | '/login'
     | '/styleguide'
     | '/text'
     | '/cabinet/$cardId'
+    | '/exercises/$id'
     | '/cabinet/'
+    | '/exercises/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/assistant'
     | '/call'
     | '/card'
     | '/done'
+    | '/invite'
+    | '/login'
     | '/styleguide'
     | '/text'
     | '/cabinet/$cardId'
+    | '/exercises/$id'
     | '/cabinet'
+    | '/exercises'
   id:
     | '__root__'
     | '/'
+    | '/assistant'
     | '/cabinet'
     | '/call'
     | '/card'
     | '/done'
+    | '/invite'
+    | '/login'
     | '/styleguide'
     | '/text'
     | '/cabinet/$cardId'
+    | '/exercises/$id'
     | '/cabinet/'
+    | '/exercises/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssistantRoute: typeof AssistantRoute
   CabinetRoute: typeof CabinetRouteWithChildren
   CallRoute: typeof CallRoute
   CardRoute: typeof CardRoute
   DoneRoute: typeof DoneRoute
+  InviteRoute: typeof InviteRoute
+  LoginRoute: typeof LoginRoute
   StyleguideRoute: typeof StyleguideRoute
   TextRoute: typeof TextRoute
+  ExercisesIdRoute: typeof ExercisesIdRoute
+  ExercisesIndexRoute: typeof ExercisesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -150,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cabinet': {
@@ -180,6 +252,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoneRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invite': {
+      id: '/invite'
+      path: '/invite'
+      fullPath: '/invite'
+      preLoaderRoute: typeof InviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/styleguide': {
       id: '/styleguide'
       path: '/styleguide'
@@ -208,6 +294,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CabinetCardIdRouteImport
       parentRoute: typeof CabinetRoute
     }
+    '/exercises/': {
+      id: '/exercises/'
+      path: '/exercises'
+      fullPath: '/exercises/'
+      preLoaderRoute: typeof ExercisesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exercises/$id': {
+      id: '/exercises/$id'
+      path: '/exercises/$id'
+      fullPath: '/exercises/$id'
+      preLoaderRoute: typeof ExercisesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -226,12 +326,17 @@ const CabinetRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssistantRoute: AssistantRoute,
   CabinetRoute: CabinetRouteWithChildren,
   CallRoute: CallRoute,
   CardRoute: CardRoute,
   DoneRoute: DoneRoute,
+  InviteRoute: InviteRoute,
+  LoginRoute: LoginRoute,
   StyleguideRoute: StyleguideRoute,
   TextRoute: TextRoute,
+  ExercisesIdRoute: ExercisesIdRoute,
+  ExercisesIndexRoute: ExercisesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
