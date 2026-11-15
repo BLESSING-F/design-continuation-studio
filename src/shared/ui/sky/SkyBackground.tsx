@@ -2,6 +2,13 @@ import { ClientOnly } from '@tanstack/react-router';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { parseOverride, type TimeOverride } from './time';
 
+export const SKY_TIME_EVENT = 'aldi-sky-time';
+/** Manual sky time from the in-page switch; undefined returns to the local clock. */
+export function setManualSkyTime(next: TimeOverride | undefined) {
+  try { if (next) sessionStorage.setItem('aldi-sky-time', JSON.stringify(next)); else sessionStorage.removeItem('aldi-sky-time'); } catch { /* storage unavailable */ }
+  window.dispatchEvent(new CustomEvent(SKY_TIME_EVENT, { detail: next }));
+}
+
 const SkyScene = lazy(() => import('./SkyScene'));
 export type SkyVariant = "full" | "call" | "veil";
 
@@ -27,6 +34,8 @@ export function SkyBackground({ variant = "full" }: { variant?: SkyVariant }) {
       }
     } catch { setOverride(query); }
     setConfigured(true);
+    const onManual = (e: Event) => setOverride((e as CustomEvent<TimeOverride | undefined>).detail);
+    window.addEventListener(SKY_TIME_EVENT, onManual);
     let inView = true;
     const syncVisibility = () => setPaused(document.hidden || !inView);
     syncVisibility();
@@ -35,7 +44,7 @@ export function SkyBackground({ variant = "full" }: { variant?: SkyVariant }) {
     if (patient) observer.observe(patient);
     motion.addEventListener('change', syncMotion);
     document.addEventListener('visibilitychange', syncVisibility);
-    return () => { observer.disconnect(); motion.removeEventListener('change', syncMotion); document.removeEventListener('visibilitychange', syncVisibility); };
+    return () => { window.removeEventListener(SKY_TIME_EVENT, onManual); observer.disconnect(); motion.removeEventListener('change', syncMotion); document.removeEventListener('visibilitychange', syncVisibility); };
   }, []);
   return (
     <div ref={root} aria-hidden="true" className="sky-scene" data-scene-ready={ready ? 'true' : undefined} data-sky-motion={reduced ? 'still' : paused ? 'paused' : 'live'}>

@@ -1,5 +1,7 @@
 // Final patient copy. Strings are the user's exact wording — do not edit without being asked.
 export const copy = {
+  // Added (not from the copy deck): sky switch.
+  sky: { night: 'Ночное небо', auto: 'Небо по времени суток' },
   start: {
     title: 'Aldi',
     text: 'Здесь можно спокойно рассказать то, о чём неловко говорить после родов. Aldi бережно запишет ваши слова и подготовит карточку для врача.',
