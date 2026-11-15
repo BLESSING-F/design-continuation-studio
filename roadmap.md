@@ -4,6 +4,8 @@
 - [x] Sky-only fixes: rounded isotropic cumulus with blue gaps; remove separate sun disk, align rays behind orb; restrict warm haze to bottom 20% above hills.
 - [x] Restyle patient panels, buttons, title and supportive line from the living-sky brief, without changing existing copy or doctor screens.
 - [x] Replace the sphere with a lazy R3F audio-reactive orb and prepare its shared transition.
+- [x] Swap the sphere for the ElevenLabs UI Orb (lilac → azure, 160px Start / 180px Call), ready for agentState and call volumes.
+- [ ] Drive the Orb from the ElevenLabs call (agentState + getInputVolume/getOutputVolume) once Start and Call screens and the voice call are approved and built.
 - [ ] Connect voice states and exercise Start→Call→Card transitions after approval to build those screens; those flows do not exist in the current design-system stage.
 - [x] Verify day/night mobile and desktop rendering, reduced motion and existing tests.
 - [x] Replace the patient backdrop with atmospheric WebGL sky, clouds, meadow and night effects.

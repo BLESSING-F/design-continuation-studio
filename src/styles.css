@@ -356,12 +356,14 @@
 .glass-label { padding: 8px 20px; }
 .glass-title { padding: 8px 30px; }
 .aldi-title { font-size: 44px; font-weight: 800; line-height: 1.25; background: var(--title-light); background-size: 250% 100%; background-clip: text; color: transparent; animation: title-light 12s ease-in-out infinite; }
-.aldi-orb { width: 190px; height: 190px; flex-shrink: 0; border-radius: 50%; box-shadow: var(--orb-halo); margin: 8px 0; }
-.aldi-orb-call { width: 220px; height: 220px; }
+.aldi-orb { width: 160px; height: 160px; flex-shrink: 0; border-radius: 50%; box-shadow: var(--orb-halo); margin: 8px 0; }
+.aldi-orb-call { width: 180px; height: 180px; }
 .aldi-orb-card { width: 64px; height: 64px; }
 .orb-surface { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--sphere); }
 .orb-loaded { background: transparent; }
 .orb-surface canvas { display: block; }
+/* The Orb disk spans ~91% of its canvas; enlarge and clip so the disk fills the sphere exactly. */
+.orb-canvas { width: 109.6%; height: 109.6%; margin: -4.8%; }
 .supportive-line { font-family: var(--font-supportive); font-size: 28px; font-weight: 500; font-style: italic; line-height: 1.2; color: var(--supportive-text); text-align: center; max-width: 100%; margin: 0 0 8px; }
 .supportive-line span { animation: letter-reveal .5s both; animation-delay: calc(var(--letter-index) * 35ms); }
 .theme-patient[data-sky-phase="night"] .supportive-line { text-shadow: 0 0 18px var(--glass-highlight); }

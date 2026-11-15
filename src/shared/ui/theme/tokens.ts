@@ -25,9 +25,9 @@ export const colors = {
   supportiveNight: "#F3F1FF",
   glassDay: "rgba(255,255,255,0.68)",
   glassNight: "rgba(16,20,52,0.58)",
-  orbLilac: "#CBBFEA",
-  orbAzure: "#8EC5E8",
-  orbMint: "#A9E6CF",
+  // ElevenLabs Orb gradient (lilac → azure)
+  orbLilac: "#C9B8F2",
+  orbAzure: "#8EC5F5",
   primaryTint: "#EDE6FA",
   lilacMist: "#DCD0F5",
   // Sky blues (decor, gradients, chips; deep is the only text/link blue)
