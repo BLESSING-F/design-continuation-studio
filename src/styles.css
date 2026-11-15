@@ -72,84 +72,322 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+@theme inline {
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-clinical: "IBM Plex Sans", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-supportive: "Cormorant Garamond", serif;
+  --color-panel: var(--panel);
+  --color-surface: var(--surface);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-tint: var(--primary-tint);
+  --color-lilac-mist: var(--lilac-mist);
+  --color-sky-light: var(--sky-light);
+  --color-sky-mid: var(--sky-mid);
+  --color-sky-deep: var(--sky-deep);
+  --color-meadow-light: var(--meadow-light);
+  --color-sage: var(--sage);
+  --color-meadow: var(--meadow);
+  --color-meadow-deep: var(--meadow-deep);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-quote: var(--quote);
+  --color-missing: var(--missing);
+  --color-uncertain: var(--uncertain);
+  --color-uncertain-foreground: var(--uncertain-foreground);
+  --shadow-card: 0 12px 32px rgba(90, 70, 150, 0.16);
+  --radius-card: 20px;
+  --radius-sheet: 28px;
 }
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+/* ---------- PATIENT: calm light room, ivory + lavender ---------- */
+:root, .theme-patient {
+  --sky-fallback: linear-gradient(180deg, oklch(0.65 0.13 243), var(--sky-light) 65%, var(--lilac-mist));
+  --sky-reading-veil: oklch(0.981 0.007 95 / 75%);
+  --radius: 1.25rem;
+  --background: oklch(0.981 0.007 95); /* #FBF9F4 */
+  --foreground: oklch(0.242 0.038 295); /* #2A2438 */
+  --card: oklch(1 0 0); /* #FFFFFF */
+  --card-foreground: oklch(0.242 0.038 295);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.242 0.038 295);
+  --primary: #2EA8FF;
+  --primary-foreground: oklch(1 0 0);
+  --primary-pressed: #1565D8;
+  --action-text: #0757A6;
+  --ghost-text: #5B4A9E;
+  --supportive-text: #1B2A5C;
+  --glass-background: rgba(255,255,255,.68);
+  --glass-border: oklch(1 0 0 / 65%);
+  --glass-highlight: oklch(1 0 0 / 90%);
+  --glass-refraction: linear-gradient(135deg, oklch(1 0 0 / 14%), oklch(0.889 0.045 236 / 4%) 45%, oklch(0.879 0.052 300 / 13%));
+  --action-glow: 0 10px 30px rgba(30,120,240,.45);
+  --action-shimmer: linear-gradient(110deg, transparent 25%, oklch(1 0 0 / 32%) 50%, transparent 75%);
+  --ripple-light: oklch(1 0 0 / 40%);
+  --title-light: linear-gradient(110deg, var(--foreground) 25%, var(--ghost-text) 45%, var(--action-text) 55%, var(--foreground) 75%);
+  --orb-halo: 0 0 35px 12px oklch(0.94 0.06 87 / 35%), 0 0 85px 25px oklch(0.85 0.04 87 / 18%);
+  --sky-speaking: oklch(0.95 0.03 270 / 12%);
+  --chip-foreground: #2A2438;
+  --primary-tint: oklch(0.936 0.028 301.7); /* #EDE6FA */
+  --lilac-mist: oklch(0.879 0.052 300.1); /* #DCD0F5 */
+  --sky-light: oklch(0.889 0.045 236); /* #BFE0F5 */
+  --sky-mid: oklch(0.798 0.076 236.9); /* #8EC5E8 */
+  --sky-deep: oklch(0.507 0.096 244.9); /* #2F6A98 — only blue allowed for text/links */
+  --meadow-light: oklch(0.903 0.035 150.5); /* #CFE6D3 */
+  --sage: oklch(0.810 0.052 151.2); /* #A9CBB0 */
+  --meadow: oklch(0.759 0.075 152.4); /* #8DBF9A */
+  --meadow-deep: oklch(0.524 0.090 163.1); /* #2F7A5B */
+  --panel: oklch(0.946 0.017 290); /* #F3EFFA */
+  --surface: oklch(1 0 0); /* #FFFFFF */
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.562 0.128 294);
+  --muted: oklch(0.946 0.017 290);
+  --muted-foreground: oklch(0.508 0.028 290); /* #6E6880 */
+  --accent: oklch(0.936 0.028 301.7);
+  --accent-foreground: oklch(0.242 0.038 295);
+  --destructive: oklch(0.527 0.19 25); /* #C9393F */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.918 0.014 290); /* #E7E2F0 */
+  --input: oklch(0.918 0.014 290);
+  --ring: oklch(0.562 0.128 294 / 40%);
+  --text-muted: #51495F;
+  --text-faint: #51495F;
+  --success: oklch(0.524 0.090 163.1); /* #2F7A5B */
+  --warn: oklch(0.623 0.118 85); /* #B8860B */
+  --danger: oklch(0.527 0.19 25); /* #C9393F */
+  --danger-bg: oklch(0.953 0.02 20); /* #FDECEC */
+  --quote: oklch(0.242 0.038 295);
+  --missing: #51495F;
+  --uncertain: oklch(0.623 0.118 85);
+  --uncertain-foreground: oklch(0.35 0.06 85);
+  /* Sphere: lilac → sky blue with a faint warm highlight, like a sun behind haze */
+  --sphere: radial-gradient(circle at 36% 30%, oklch(0.97 0.03 90 / 0.95), oklch(0.828 0.061 297.8) 42%, oklch(0.798 0.076 236.9) 70%, oklch(0.798 0.076 236.9 / 0) 78%);
+  font-family: var(--font-sans);
+}
+
+.theme-patient[data-sky-phase="night"] {
+  --glass-background: rgba(16,20,52,.58);
+  --glass-border: oklch(0.85 0.04 295 / 35%);
+  --glass-highlight: oklch(0.94 0.025 285 / 45%);
+  --glass-refraction: linear-gradient(135deg, oklch(0.75 0.07 295 / 10%), transparent 45%, oklch(0.8 0.07 220 / 7%));
+  --foreground: #F3F1FF;
+  --card-foreground: #F3F1FF;
+  --text-muted: #E1DCEC;
+  --text-faint: #E1DCEC;
+  --muted-foreground: #E1DCEC;
+  --missing: #E1DCEC;
+  --quote: #F3F1FF;
+  --ghost-text: #D9CCFF;
+  --action-text: #A4DAFF;
+  --supportive-text: #F3F1FF;
+  --uncertain-foreground: #F7D78C;
+  --orb-halo: 0 0 40px 15px oklch(0.88 0.04 290 / 30%), 0 0 90px 28px oklch(0.74 0.08 290 / 20%);
+}
+.theme-patient[data-sky-phase="sunset"] { --glass-refraction: linear-gradient(135deg, oklch(0.9 0.06 45 / 13%), transparent 45%, oklch(0.8 0.06 295 / 10%)); }
+
+/* ---------- DOCTOR: clinical, dense, A4 ---------- */
+.theme-doctor {
+  --radius: 0.125rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.15 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0.003 250);
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.97 0.003 250);
+  --muted-foreground: oklch(0.45 0.01 250);
+  --accent: oklch(0.94 0.01 250);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.5 0.2 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.85 0.005 250);
+  --input: oklch(0.8 0.005 250);
+  --ring: oklch(0.15 0 0);
+  --quote: oklch(0.15 0 0);
+  --missing: oklch(0.5 0.01 250);
+  --uncertain: oklch(0.15 0 0);
+  --uncertain-foreground: oklch(1 0 0);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-clinical);
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
+  * { border-color: var(--color-border); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
   }
+}
+
+@utility font-clinical { font-family: var(--font-clinical); }
+
+/* Patient layout: centered column, max 480px on desktop */
+@utility container-patient {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Patient buttons: pill, 56px tall, full width on mobile */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 100%;
+  border-radius: 9999px;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+  transition: background-color 150ms ease, color 150ms ease, transform 100ms ease;
+  &:active { transform: scale(0.98); }
+  @media (min-width: 480px) { width: auto; padding-inline: 2.5rem; }
+}
+@utility btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(135deg, var(--primary), var(--primary-pressed));
+  color: var(--primary-foreground);
+  font-size: 20px;
+  box-shadow: var(--action-glow);
+  &::before { content: ''; position: absolute; inset: 0; background: var(--action-shimmer); transform: translateX(-150%); animation: action-shimmer 6s ease-in-out infinite; pointer-events: none; }
+  &:active {
+    background: linear-gradient(180deg, var(--primary), var(--primary-pressed));
+    box-shadow: var(--action-glow);
+  }
+}
+@utility btn-secondary {
+  background: var(--glass-refraction), var(--glass-background);
+  backdrop-filter: blur(24px) saturate(160%);
+  color: var(--action-text);
+  border: 1px solid var(--action-text);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  &:active { background: var(--primary-tint); }
+}
+@utility btn-ghost {
+  background: transparent;
+  color: var(--ghost-text);
+  &:active { background: var(--primary-tint); }
+}
+
+/* Patient card: ivory at 88% opacity, 20px radius, lilac shadow, white top highlight */
+@utility card-patient {
+  background: var(--glass-refraction), var(--glass-background);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 var(--glass-highlight);
+}
+
+/* Bottom sheet: 28px top radius */
+@utility sheet-bottom {
+  background: var(--glass-refraction), var(--glass-background);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-top-left-radius: var(--radius-sheet);
+  border-top-right-radius: var(--radius-sheet);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--glass-highlight);
+}
+
+/* Red is used ONLY here: urgent banner + hang-up call button */
+@utility banner-urgent {
+  position: relative;
+  z-index: 2;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-card);
+}
+@utility btn-hangup {
+  background: var(--danger);
+  color: oklch(1 0 0);
+  &:active { background: oklch(0.45 0.17 25); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.86); opacity: 0.75; }
+  50% { transform: scale(1); opacity: 1; }
+}
+@utility sphere {
+  background: var(--sphere);
+  border-radius: 9999px;
+  filter: blur(0.5px);
+  animation: breathe 8s ease-in-out infinite;
+  box-shadow: 0 0 80px 10px oklch(0.798 0.076 236.9 / 22%);
+}
+
+/* ---------- Sky backdrop: one fixed layer behind all patient screens ---------- */
+.sky-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--sky-fallback);
+}
+
+/* Isolate the fixed sky from both the page background and the doctor's band. */
+.theme-patient:has(.sky-scene) { isolation: isolate; }
+.sky-scene canvas { display: block; }
+.sky-scene::after { content: ''; position: absolute; inset: 0; background: var(--sky-speaking); opacity: 0; transition: opacity 1s ease; }
+.theme-patient[data-aldi-speaking="true"] .sky-scene::after { opacity: 1; }
+
+.glass-label, .glass-title { background: var(--glass-refraction), var(--glass-background); backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); box-shadow: inset 0 1px 0 var(--glass-highlight); border-radius: 20px; }
+.glass-label { padding: 8px 20px; }
+.glass-title { padding: 8px 30px; }
+.aldi-title { font-size: 44px; font-weight: 800; line-height: 1.25; background: var(--title-light); background-size: 250% 100%; background-clip: text; color: transparent; animation: title-light 12s ease-in-out infinite; }
+.aldi-orb { width: 190px; height: 190px; flex-shrink: 0; border-radius: 50%; box-shadow: var(--orb-halo); margin: 8px 0; }
+.aldi-orb-call { width: 220px; height: 220px; }
+.aldi-orb-card { width: 64px; height: 64px; }
+.orb-surface { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--sphere); }
+.orb-loaded { background: transparent; }
+.orb-surface canvas { display: block; }
+.supportive-line { font-family: var(--font-supportive); font-size: 28px; font-weight: 500; font-style: italic; line-height: 1.2; color: var(--supportive-text); text-align: center; max-width: 100%; margin: 0 0 8px; }
+.supportive-line span { animation: letter-reveal .5s both; animation-delay: calc(var(--letter-index) * 35ms); }
+.theme-patient[data-sky-phase="night"] .supportive-line { text-shadow: 0 0 18px var(--glass-highlight); }
+.theme-patient .bg-sky-light, .theme-patient .bg-meadow-light, .theme-patient .bg-lilac-mist { color: var(--chip-foreground); }
+.button-ripple { position: absolute; width: 16px; height: 16px; margin: -8px; border-radius: 50%; background: var(--ripple-light); pointer-events: none; animation: touch-ripple .65s ease-out forwards; }
+@keyframes title-light { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes action-shimmer { 0%, 70% { transform: translateX(-150%); } 100% { transform: translateX(150%); } }
+@keyframes touch-ripple { to { transform: scale(40); opacity: 0; } }
+@keyframes letter-reveal { from { opacity: 0; filter: blur(5px); } to { opacity: 1; filter: blur(0); } }
+
+/* Text/Card screens: 75% ivory veil, no blur, so text stays easy to read */
+.sky-veil {
+  position: absolute;
+  inset: 0;
+  background: var(--sky-reading-veil);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphere { animation: none; }
+  .aldi-title, .btn-primary::before, .supportive-line span, .button-ripple { animation: none; }
+  .button-ripple { display: none; }
+  .sky-scene::after { transition: none; }
+}
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  .theme-doctor { font-size: 10.5pt; }
+  .no-print { display: none !important; }
 }

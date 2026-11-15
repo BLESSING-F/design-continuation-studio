@@ -28,3 +28,12 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+<!-- AGENT-MEMORY:BEGIN -->
+- Two themes scoped by wrapper class `.theme-patient` / `.theme-doctor` in src/styles.css; never mix tokens across them (why: patient and doctor styles must never blend).
+- Keep the WebGL patient backdrop lazy-loaded behind ClientOnly, with time rules in pure TypeScript and scene colors in shared theme tokens; why: preserve SSR, doctor screens, and independently test local-clock/demo timing.
+- Advance sky animation through one frame callback and stop the canvas loop for reduced motion, hidden tabs and offscreen patient sections; why: accessibility must freeze all effects together without accumulated animation jumps.
+- Patient glass uses the sky canvas's data-sky-phase signal and shared semantic tokens; why: panel contrast and sky time must stay synchronized, including demo cycles.
+- Keep the lazy audio-reactive orb controlled by state/input/output levels and placement, with one shared layoutId; why: real voice screens can reuse visual transitions without inventing call logic in the design-system stage.
+- Use seeded Drei Clouds with the project-hosted standard texture, pure cloud-motion drift and GodRays behind the orb; why: reuse the requested cloud renderer while testing wind separately and preserving the gradient/foliage shaders. Dev canvas data-cloud-x and data-cloud-opacity expose live verification state.
+<!-- AGENT-MEMORY:END -->
