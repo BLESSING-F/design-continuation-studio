@@ -44,13 +44,16 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-// Where the backend API lives (for example https://aldi-api.up.railway.app). Set it as a secret or
-// environment variable named API_ORIGIN on the hosting; VITE_API_ORIGIN works at build time.
-function apiOrigin(env: unknown): string | undefined {
+// Where the backend API lives. Set a secret or environment variable named API_ORIGIN on the hosting
+// to point somewhere else; VITE_API_ORIGIN works at build time. Without either, the deployed
+// Railway backend is used.
+const DEFAULT_API_ORIGIN = "https://aldi-production-b43f32e4.up.railway.app";
+
+function apiOrigin(env: unknown): string {
   const fromEnv = (env as Record<string, unknown> | null | undefined)?.["API_ORIGIN"];
   const fromProcess = typeof process !== "undefined" ? process.env?.["API_ORIGIN"] : undefined;
-  const value = (typeof fromEnv === "string" && fromEnv) || fromProcess || (import.meta.env["VITE_API_ORIGIN"] as string | undefined);
-  return value ? value.replace(/\/+$/, "") : undefined;
+  const value = (typeof fromEnv === "string" && fromEnv) || fromProcess || (import.meta.env["VITE_API_ORIGIN"] as string | undefined) || DEFAULT_API_ORIGIN;
+  return value.replace(/\/+$/, "");
 }
 
 // The browser always calls /api on this site; the server passes the request on to the backend.
