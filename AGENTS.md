@@ -40,4 +40,5 @@ use the editor.
 - Patient copy lives only in src/shared/copy/patient.ts; card rules in src/features/session/card.ts (pure, tested), browser persistence in storage.ts; why: exact user strings and quote-backed card rules stay in one testable place.
 - Reading screens (data-reading) keep day text/glass tokens under the ivory veil at night; why: contrast on the 75% ivory veil.
 - React Bits GradientText/ClickSpark are vendored in src/components/ui (ClickSpark is ts-nocheck); why: upstream code, kept close to source.
+- Doctor cabinet lives under /cabinet (ssr:false, .theme-doctor): doctors sign in with clinic code + password (account address derived in src/features/cabinet/clinic.ts, created confirmed by registerClinic); patients send cards via public submitCard which checks the clinic code and inserts with the admin client; doctors read cards only through RLS by clinic owner; why: only the doctor registers, and a patient link can't read anything back.
 <!-- AGENT-MEMORY:END -->

@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CabinetRouteImport } from './routes/cabinet'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as CardRouteImport } from './routes/card'
 import { Route as DoneRouteImport } from './routes/done'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TextRouteImport } from './routes/text'
+import { Route as CabinetIndexRouteImport } from './routes/cabinet.index'
+import { Route as CabinetCardIdRouteImport } from './routes/cabinet.$cardId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CabinetRoute = CabinetRouteImport.update({
+  id: '/cabinet',
+  path: '/cabinet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CallRoute = CallRouteImport.update({
@@ -46,14 +54,27 @@ const TextRoute = TextRouteImport.update({
   path: '/text',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CabinetIndexRoute = CabinetIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CabinetRoute,
+} as any)
+const CabinetCardIdRoute = CabinetCardIdRouteImport.update({
+  id: '/$cardId',
+  path: '/$cardId',
+  getParentRoute: () => CabinetRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cabinet': typeof CabinetRouteWithChildren
   '/call': typeof CallRoute
   '/card': typeof CardRoute
   '/done': typeof DoneRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
+  '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/cabinet/': typeof CabinetIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,26 +83,59 @@ export interface FileRoutesByTo {
   '/done': typeof DoneRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
+  '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/cabinet': typeof CabinetIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cabinet': typeof CabinetRouteWithChildren
   '/call': typeof CallRoute
   '/card': typeof CardRoute
   '/done': typeof DoneRoute
   '/styleguide': typeof StyleguideRoute
   '/text': typeof TextRoute
+  '/cabinet/$cardId': typeof CabinetCardIdRoute
+  '/cabinet/': typeof CabinetIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/call' | '/card' | '/done' | '/styleguide' | '/text'
+  fullPaths:
+    | '/'
+    | '/cabinet'
+    | '/call'
+    | '/card'
+    | '/done'
+    | '/styleguide'
+    | '/text'
+    | '/cabinet/$cardId'
+    | '/cabinet/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/call' | '/card' | '/done' | '/styleguide' | '/text'
-  id: '__root__' | '/' | '/call' | '/card' | '/done' | '/styleguide' | '/text'
+  to:
+    | '/'
+    | '/call'
+    | '/card'
+    | '/done'
+    | '/styleguide'
+    | '/text'
+    | '/cabinet/$cardId'
+    | '/cabinet'
+  id:
+    | '__root__'
+    | '/'
+    | '/cabinet'
+    | '/call'
+    | '/card'
+    | '/done'
+    | '/styleguide'
+    | '/text'
+    | '/cabinet/$cardId'
+    | '/cabinet/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CabinetRoute: typeof CabinetRouteWithChildren
   CallRoute: typeof CallRoute
   CardRoute: typeof CardRoute
   DoneRoute: typeof DoneRoute
@@ -96,6 +150,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cabinet': {
+      id: '/cabinet'
+      path: '/cabinet'
+      fullPath: '/cabinet'
+      preLoaderRoute: typeof CabinetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/call': {
@@ -133,11 +194,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TextRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cabinet/': {
+      id: '/cabinet/'
+      path: '/'
+      fullPath: '/cabinet/'
+      preLoaderRoute: typeof CabinetIndexRouteImport
+      parentRoute: typeof CabinetRoute
+    }
+    '/cabinet/$cardId': {
+      id: '/cabinet/$cardId'
+      path: '/$cardId'
+      fullPath: '/cabinet/$cardId'
+      preLoaderRoute: typeof CabinetCardIdRouteImport
+      parentRoute: typeof CabinetRoute
+    }
   }
 }
 
+interface CabinetRouteChildren {
+  CabinetCardIdRoute: typeof CabinetCardIdRoute
+  CabinetIndexRoute: typeof CabinetIndexRoute
+}
+
+const CabinetRouteChildren: CabinetRouteChildren = {
+  CabinetCardIdRoute: CabinetCardIdRoute,
+  CabinetIndexRoute: CabinetIndexRoute,
+}
+
+const CabinetRouteWithChildren =
+  CabinetRoute._addFileChildren(CabinetRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CabinetRoute: CabinetRouteWithChildren,
   CallRoute: CallRoute,
   CardRoute: CardRoute,
   DoneRoute: DoneRoute,

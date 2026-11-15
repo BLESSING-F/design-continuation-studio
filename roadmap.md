@@ -18,4 +18,4 @@
 - [x] ClickSpark (React Bits) only on the three primary buttons; replaces ripple; disabled = no sparks; 220 ms route delay; night glow 0.9.
 - [x] Publish the site once the patient screens are built and checked.
 - [ ] Fill card rows from the patient's words (needs AI card building) and connect the ElevenLabs voice agent; until then voice calls end on the error state and text cards start as «Не указано».
-- [ ] Real delivery to the doctor (needs doctor cabinet + backend); «Отправить врачу» currently only marks the card sent in this browser.
+- [x] Doctor cabinet at /cabinet: clinic-code sign-in and registration, clinic link + QR, received cards list, card view with print; «Отправить врачу» delivers to the clinic from the link.

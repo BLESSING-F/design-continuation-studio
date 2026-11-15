@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -6,7 +7,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { copy } from "@/shared/copy/patient";
 import { FIELDS, displayValue, doctorPhrase, editField, markSent, MISSING, type Card, type FieldId } from "@/features/session/card";
-import { clearCard, loadCard, saveCard } from "@/features/session/storage";
+import { clearCard, loadCard, readClinic, saveCard } from "@/features/session/storage";
+import { submitCard } from "@/features/cabinet/cabinet.functions";
 import { DeleteSheet } from "@/shared/ui/patient/DeleteSheet";
 import { SparkPrimary } from "@/shared/ui/patient/PrimaryAction";
 import { UrgentBanner } from "@/shared/ui/patient/UrgentBanner";
@@ -34,6 +36,8 @@ function CardScreen() {
   const [draft, setDraft] = useState("");
   const [showTranscript, setShowTranscript] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [sending, setSending] = useState(false);
+  const sendCard = useServerFn(submitCard);
 
   useEffect(() => {
     const saved = loadCard();
@@ -51,10 +55,20 @@ function CardScreen() {
   const copyPhrase = async () => {
     try { await navigator.clipboard.writeText(phrase); toast(copy.card.copied); } catch { /* clipboard unavailable */ }
   };
-  const send = () => {
-    update(markSent(card));
-    toast(copy.card.sent);
-    setTimeout(() => void navigate({ to: "/done" }), ROUTE_DELAY_MS);
+  const send = async () => {
+    const clinic = readClinic(window.location.search);
+    if (!clinic) { toast(copy.card.noClinic); return; }
+    setSending(true);
+    try {
+      const sent = markSent(card);
+      const res = await sendCard({ data: { clinic, card: sent } });
+      if (!res.ok) { toast(res.reason === "clinic" ? copy.card.noClinic : copy.card.sendFailed); return; }
+      update(sent);
+      toast(copy.card.sent);
+      setTimeout(() => void navigate({ to: "/done" }), ROUTE_DELAY_MS);
+    } catch {
+      toast(copy.card.sendFailed);
+    } finally { setSending(false); }
   };
   const remove = () => {
     clearCard();
@@ -112,7 +126,7 @@ function CardScreen() {
       {showTranscript && <p className="card-patient w-full whitespace-pre-wrap p-5 text-quote">{card.transcript || MISSING}</p>}
 
       <div className="no-print flex w-full flex-col items-center gap-3">
-        <SparkPrimary caption={copy.card.sendCaption} onClick={send}>{copy.card.send}</SparkPrimary>
+        <SparkPrimary caption={copy.card.sendCaption} disabled={sending} onClick={() => void send()}>{copy.card.send}</SparkPrimary>
         <div className="glass-label w-full p-0">
           <Button variant="patientGhost" size="patient" className="w-full" onClick={() => window.print()}>{copy.card.savePdf}</Button>
         </div>

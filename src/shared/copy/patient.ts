@@ -46,6 +46,9 @@ export const copy = {
     send: 'Отправить врачу',
     sendCaption: 'Карточку увидит только ваш врач',
     sent: 'Отправлено врачу',
+    // Added (not from the copy deck): shown only when sending fails.
+    sendFailed: 'Не получилось отправить. Попробуйте ещё раз',
+    noClinic: 'Чтобы отправить карточку, откройте ссылку от вашей клиники. Карточку можно сохранить себе в PDF',
     savePdf: 'Сохранить себе (PDF)',
     deleteAll: 'Удалить всё',
     missing: 'Не указано',
