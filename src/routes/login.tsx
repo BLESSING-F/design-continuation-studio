@@ -17,7 +17,7 @@ const t = authCopy.login;
 
 // Demo accounts exist only in seeded demo data (fictional people). Shown in development,
 // or when a build is explicitly marked as a demo.
-const DEMO = import.meta.env.DEV || import.meta.env["VITE_DEMO"] === "true";
+const DEMO = true; // one-tap demo entry, also on the published site
 const DEMO_PASSWORD = "aldi-demo-2026";
 
 function LoginScreen() {
