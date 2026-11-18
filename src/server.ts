@@ -70,6 +70,18 @@ async function proxyApi(request: Request, origin: string): Promise<Response> {
     // The body is passed through as decoded bytes; the hosting compresses it again at the edge.
     responseHeaders.delete("content-encoding");
     responseHeaders.delete("content-length");
+    // The Lovable preview runs inside a frame where the SameSite=Lax cookie is dropped, so sign-in
+    // responses also carry the session as a token the client sends as a bearer header.
+    const session = /aldi_session=([^;]+)/.exec(upstream.headers.get("set-cookie") ?? "")?.[1];
+    if (session && upstream.ok && url.pathname.startsWith("/api/auth/")) {
+      const json = (await upstream.json().catch(() => null)) as { data?: Record<string, unknown> } | null;
+      if (json?.data && !json.data["token"]) {
+        json.data["token"] = session;
+        responseHeaders.set("content-type", "application/json");
+        return new Response(JSON.stringify(json), { status: upstream.status, headers: responseHeaders });
+      }
+      return new Response(JSON.stringify(json), { status: upstream.status, headers: responseHeaders });
+    }
     return new Response(upstream.body, { status: upstream.status, headers: responseHeaders });
   } catch (error) {
     console.error(error);
