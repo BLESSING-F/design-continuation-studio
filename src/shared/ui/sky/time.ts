@@ -1,5 +1,22 @@
 export type SkyTime = 'dawn' | 'day' | 'sunset' | 'night' | 'cycle';
 export type TimeOverride = { time?: SkyTime; hour?: number };
+/** Positions of the on-page switch: the local clock, morning, or night. */
+export type SkyMode = 'auto' | 'morning' | 'night';
+
+/** The override each switch position applies; 'auto' hands the sky back to the local clock. */
+export function overrideForMode(mode: SkyMode): TimeOverride | undefined {
+  if (mode === 'night') return { time: 'night' };
+  if (mode === 'morning') return { time: 'dawn' };
+  return undefined;
+}
+
+/** Which switch position a stored override came from; unknown overrides light nothing. */
+export function modeOfOverride(override: TimeOverride | undefined): SkyMode | undefined {
+  if (!override) return 'auto';
+  if (override.time === 'night') return 'night';
+  if (override.time === 'dawn') return 'morning';
+  return undefined;
+}
 export const CYCLE_SECONDS = 40;
 export const DEMO_HOURS = { dawn: 6, day: 12, sunset: 19, night: 23 } as const;
 

@@ -356,6 +356,12 @@
 
 .glass-label { background: var(--glass-refraction), var(--glass-background); backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); box-shadow: inset 0 1px 0 var(--glass-highlight); border-radius: 20px; }
 .glass-label { padding: 8px 20px; }
+/* Sky switch: three positions — local clock, morning, night. */
+.sky-modes { display: flex; align-items: center; gap: 2px; padding: 5px 6px; border-radius: 999px; }
+.sky-mode { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 12px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--text-muted); }
+.sky-mode[aria-pressed="true"] { background: linear-gradient(135deg, var(--primary), var(--primary-pressed)); color: var(--primary-foreground); }
+.sky-mode:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+@media (max-width: 420px) { .sky-mode { padding: 6px 9px; } .sky-mode span { display: none; } }
 .aldi-title { position: relative; isolation: isolate; font-family: var(--font-supportive); font-style: italic; font-weight: 600; font-size: 52px; line-height: 1.1; letter-spacing: 0.01em; padding: 0 12px; }
 /* Soft borderless light behind the title for readability on the sky. */
 .aldi-title::before { content: ''; position: absolute; left: 50%; top: 50%; width: 260px; height: 120px; transform: translate(-50%, -50%); z-index: -2; pointer-events: none; background: radial-gradient(ellipse at center, var(--title-glow) 0%, transparent 70%); }

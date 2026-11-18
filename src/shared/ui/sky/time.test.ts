@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CYCLE_SECONDS, hourAt, parseOverride, phaseAt, shootingStarWindow } from './time';
+import { CYCLE_SECONDS, hourAt, modeOfOverride, overrideForMode, parseOverride, phaseAt, shootingStarWindow } from './time';
 
 describe('sky time rules', () => {
   it('uses local hours without an override', () => {
@@ -28,5 +28,20 @@ describe('sky time rules', () => {
       expect(gap).toBeGreaterThanOrEqual(20);
       expect(gap).toBeLessThanOrEqual(40);
     }
+  });
+  it('gives each switch position its own sky', () => {
+    expect(overrideForMode('auto')).toBeUndefined();
+    expect(overrideForMode('morning')).toEqual({ time: 'dawn' });
+    expect(overrideForMode('night')).toEqual({ time: 'night' });
+  });
+  it('lights only the position the sky was set to', () => {
+    expect(modeOfOverride(undefined)).toBe('auto');
+    expect(modeOfOverride({ time: 'dawn' })).toBe('morning');
+    expect(modeOfOverride({ time: 'night' })).toBe('night');
+    expect(modeOfOverride({ time: 'sunset' })).toBeUndefined();
+    expect(modeOfOverride({ hour: 9 })).toBeUndefined();
+  });
+  it('reads morning as a morning hour', () => {
+    expect(phaseAt(hourAt(overrideForMode('morning'), 0, new Date(2026, 10, 15, 13, 0, 0)))).toBe('dawn');
   });
 });

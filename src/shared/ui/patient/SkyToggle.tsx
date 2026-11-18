@@ -1,26 +1,38 @@
-import { Moon, Sun } from 'lucide-react';
+import { Clock, Moon, Sunrise } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { copy } from '@/shared/copy/patient';
 import { setManualSkyTime, SKY_TIME_EVENT } from '../sky/SkyBackground';
-import type { TimeOverride } from '../sky/time';
+import { modeOfOverride, overrideForMode, type SkyMode, type TimeOverride } from '../sky/time';
 
-/** Switch between the night sky and the automatic, clock-driven sky without touching the address. */
+const MODES: { mode: SkyMode; short: string; full: string; icon: typeof Moon }[] = [
+  { mode: 'auto', short: copy.sky.autoShort, full: copy.sky.auto, icon: Clock },
+  { mode: 'morning', short: copy.sky.morningShort, full: copy.sky.morning, icon: Sunrise },
+  { mode: 'night', short: copy.sky.nightShort, full: copy.sky.night, icon: Moon },
+];
+
+/** Switch the sky between the local clock, morning and night without touching the address. */
 export function SkyToggle() {
-  const [night, setNight] = useState(false);
+  const [active, setActive] = useState<SkyMode | undefined>();
   useEffect(() => {
-    try { const saved = sessionStorage.getItem('aldi-sky-time'); setNight(saved ? (JSON.parse(saved) as TimeOverride).time === 'night' : false); } catch { /* ignore */ }
-    const sync = (e: Event) => setNight((e as CustomEvent<TimeOverride | undefined>).detail?.time === 'night');
+    try {
+      const saved = sessionStorage.getItem('aldi-sky-time');
+      setActive(modeOfOverride(saved ? (JSON.parse(saved) as TimeOverride) : undefined));
+    } catch { setActive('auto'); }
+    const sync = (e: Event) => setActive(modeOfOverride((e as CustomEvent<TimeOverride | undefined>).detail));
     window.addEventListener(SKY_TIME_EVENT, sync);
     return () => window.removeEventListener(SKY_TIME_EVENT, sync);
   }, []);
-  const label = night ? copy.sky.auto : copy.sky.night;
   return (
-    <button type="button" aria-pressed={night} aria-label={copy.sky.night} title={label}
-      onClick={() => setManualSkyTime(night ? undefined : { time: 'night' })}
-      className="glass-label no-print fixed right-4 top-4 z-20 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold">
-      {night ? <Sun aria-hidden="true" className="size-4" /> : <Moon aria-hidden="true" className="size-4" />}
-      <span>{label}</span>
-    </button>
+    <div className="sky-modes glass-label no-print fixed right-4 top-4 z-20" role="group" aria-label={copy.sky.auto}>
+      {MODES.map(({ mode, short, full, icon: Icon }) => (
+        <button key={mode} type="button" aria-pressed={active === mode} aria-label={full} title={full}
+          onClick={() => setManualSkyTime(overrideForMode(mode))}
+          className="sky-mode">
+          <Icon aria-hidden="true" className="size-4" />
+          <span>{short}</span>
+        </button>
+      ))}
+    </div>
   );
 }

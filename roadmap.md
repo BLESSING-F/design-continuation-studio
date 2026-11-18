@@ -10,6 +10,7 @@
 - [x] Verify day/night mobile and desktop rendering, reduced motion and existing tests.
 - [x] Replace the patient backdrop with atmospheric WebGL sky, clouds, meadow and night effects.
 - [x] Add local time, session demo overrides, reduced motion and hidden-tab pause.
+- [x] Sky switch with three positions: Авто (local clock), Утро (dawn sky), Ночь (night sky); labels written by the agent, not from the copy deck.
 - [x] Verify four time-mode screenshots, desktop/mobile, session persistence, existing routing and pure time rules; keep doctor screens and copy unchanged.
 - [ ] Real-device smoothness and orientation need the user's phone; software rendering cannot establish those.
 # Patient screens (final copy)
